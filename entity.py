@@ -35,13 +35,13 @@ class Entity:
             self.gamemap = gamemap
             gamemap.entities.add(self)
 
-    def spawn(self: T, game_map: GameMap, x: int, y: int) -> T:
+    def spawn(self: T, gamemap: GameMap, x: int, y: int) -> T:
         """Spawn a copy of this instance at the given location."""
         clone = copy.deepcopy(self)
         clone.x = x
         clone.y = y
         clone.gamemap = gamemap
-        game_map.entities.add(clone)
+        gamemap.entities.add(clone)
         return clone
     
     def place(self, x: int, y: int, gamemap: Optional[GameMap] = None) -> None:
