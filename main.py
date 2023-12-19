@@ -10,8 +10,8 @@ from procgen import generate_dungeon
 
 
 def main() -> None:
-    screen_width = 80
-    screen_height = 50
+    screen_width = 100
+    screen_height = 70
 
     map_width = 80
     map_height = 43
@@ -42,7 +42,7 @@ def main() -> None:
     engine.update_fov()
 
     engine.message_log.add_message(
-        "Hello and welcome, adventurer, to yet another dungeon!", colour.welcome_text
+        "Welcome to the dungeon, beware of the monsters...", colour.welcome_text
     )
 
     with tcod.context.new_terminal(
