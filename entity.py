@@ -113,7 +113,7 @@ class Item(Entity):
             x: int = 0,
             y: int = 0,
             char: str = "?",
-            colour: Tuple[int, int, int] = (255, 255, 255),
+            color: Tuple[int, int, int] = (255, 255, 255),
             name: str = "<Unnamed>",
             consumable: Consumable,
     ):

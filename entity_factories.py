@@ -29,7 +29,7 @@ troll = Actor(
 
 health_potion = Item(
     char="!",
-    colour=(127, 0, 255),
+    color=(127, 0, 255),
     name="Health Potion",
     consumable=HealingConsumable(amount=4),
 )
