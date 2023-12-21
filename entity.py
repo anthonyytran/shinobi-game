@@ -121,6 +121,7 @@ class Item(Entity):
             x=x, 
             y=y,
             char=char, 
+            color=color,
             name=name, 
             blocks_movement=False,
             render_order=RenderOrder.ITEM,
