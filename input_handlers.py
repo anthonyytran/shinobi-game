@@ -55,6 +55,11 @@ WAIT_KEYS = {
     tcod.event.KeySym.CLEAR,
 }
 
+CONFIRM_KEYS = {
+    tcod.event.KeySym.RETURN,
+    tcod.event.KeySym.KP_ENTER,
+}
+
 
 class EventHandler(tcod.event.EventDispatch[Action]):
     def __init__(self, engine: Engine):
@@ -110,7 +115,7 @@ class AskUserEventHandler(EventHandler):
             tcod.event.KeySym.LCTRL,
             tcod.event.KeySym.RCTRL,
             tcod.event.KeySym.LALT,
-            tcod.event.KeySym.RALT,
+            tcod.event.KeySym.RALT, 
         }:
             return None
         return self.on_exit()
@@ -175,7 +180,7 @@ class InventoryEventHandler(AskUserEventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
         player = self.engine.player
         key = event.sym
-        index = key - tcod.event.K_a
+        index = key - tcod.event.KeySym.a
 
         if 0 <= index <= 26:
             try: 
@@ -208,8 +213,62 @@ class InventoryDropHandler(InventoryEventHandler):
         """Drop this item."""
         return actions.DropItem(self.engine.player, item)
     
-class MainGameEventHandler(EventHandler):
+class SelectIndexHandler(AskUserEventHandler):
+    """Handles asking the user for an index on the map."""
 
+    def __init__(self, engine: Engine):
+        """Sets the cursor to the player when this handler is constructed."""
+        super().__init__(engine)
+        player = self.engine.player
+        engine.mouse_location = player.x, player.y
+
+    def on_render(self, console: tcod.Console) -> None: 
+        """Highlight the tile under the cursor."""
+        super().on_render(console)
+        x, y = self.engine_mouse_location
+        console.tiles_rgb["bg"][x, y] = colour.white
+        console.tiles_rgb["fg"][x, y] = colour.black
+
+    def ev_keydown(self, event: tcod.event.KeyDown) -> None:
+        """Check for key movement or confirmation keys."""
+        key = event.sym
+        if key in MOVE_KEYS:
+            modifier = 1 # Holding modifier keys will speed up key movement.
+            if event.mod & (tcod.event.KMOD_LSHIFT | tcod.event.KMOD_RSHIFT):
+                modifier *= 5
+            if event.mod & (tcod.event.KMOD_LCTRL | tcod.event.KMOD_RCTRL):
+                modifier *= 10
+            if event.mod & (tcod.event.KMOD_LALT | tcod.event.KMOD_RALT):
+                modifier *= 20
+
+            x, y = self.engine.mouse_location
+            dx, dy = MOVE_KEYS[key]
+            x += dx * modifier
+            y += dy * modifier
+            # Clamp the cursor index to the map size.
+            x = max(0, min(x, self.engine.game_map.width - 1))
+            y = max(0, min(y, self.engine.game_map.height - 1))
+            self.engine.mouse_location = x, y
+            return None
+        elif key in CONFIRM_KEYS:
+            return self.on_index_selected(*self.engine.mouse_location)
+        return super().ev_keydown(event)
+    
+    def ev_mousebuttondown(self, event: tcod.event.MousebuttonDown) -> Optional[Action]:
+        """Left click confirms a selection."""
+        if self.engine.game_map.in_bounds(*event.tile):
+            if event.button == 1:
+                return self.on_index_selected(*event.tile)
+        return super().ev_mousebuttondown(event)
+    
+class LookHandler(SelectIndexHandler):
+    """Lets the player look around using the keyboard."""
+
+    def on_index_selected(self, x: int, y: int) -> None:
+        """Return to main handler."""
+        self.engine.event_handler = MainGameEventHandler(self.engine)
+    
+class MainGameEventHandler(EventHandler):
     def ev_keydown(self, event: tcod.event.KeyDown) -> Optional[Action]:
         action: Optional[Action] = None
 
@@ -229,9 +288,9 @@ class MainGameEventHandler(EventHandler):
         elif key == tcod.event.KeySym.g:
             action = PickupAction(player)
         
-        elif key == tcod.event.K_i:
+        elif key == tcod.event.KeySym.i:
             self.engine.event_handler = InventoryActivateHandler(self.engine)
-        elif key == tcod.event.K_d:
+        elif key == tcod.event.KeySym.d:
             self.engine.event_handler = InventoryDropHandler(self.engine)
         # No valid key was pressed
         return action
