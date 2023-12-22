@@ -225,9 +225,9 @@ class SelectIndexHandler(AskUserEventHandler):
     def on_render(self, console: tcod.Console) -> None: 
         """Highlight the tile under the cursor."""
         super().on_render(console)
-        x, y = self.engine_mouse_location
-        console.tiles_rgb["bg"][x, y] = colour.white
-        console.tiles_rgb["fg"][x, y] = colour.black
+        x, y = self.engine.mouse_location
+        console.rgb["bg"][x, y] = colour.white
+        console.rgb["fg"][x, y] = colour.black
 
     def ev_keydown(self, event: tcod.event.KeyDown) -> None:
         """Check for key movement or confirmation keys."""
@@ -292,6 +292,8 @@ class MainGameEventHandler(EventHandler):
             self.engine.event_handler = InventoryActivateHandler(self.engine)
         elif key == tcod.event.KeySym.d:
             self.engine.event_handler = InventoryDropHandler(self.engine)
+        elif key == tcod.event.KeySym.SLASH:
+            self.engine.event_handler = LookHandler(self.engine)
         # No valid key was pressed
         return action
 
