@@ -40,7 +40,7 @@ health_potion = Item(
 
 lightning_scroll = Item(
     char="~",
-    color=(255, 255, 0),
+    color=(0, 0, 230),
     name="Lightning Scroll",
     consumable=consumable.LightningDamageConsumable(damage=20, maximum_range=5),
 )
