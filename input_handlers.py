@@ -189,7 +189,7 @@ class InventoryEventHandler(AskUserEventHandler):
             try:
                 selected_item = player.inventory.items[index]
             except IndexError:
-                self.engine.message_log.add_message("Invalid entry.", color.invalid)
+                self.engine.message_log.add_message("Invalid entry.", colour.invalid)
                 return None
             return self.on_item_selected(selected_item)
         return super().ev_keydown(event)
