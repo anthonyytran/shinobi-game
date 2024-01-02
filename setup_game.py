@@ -6,7 +6,7 @@ from typing import Optional
 
 import tcod
 
-import color
+import colour
 from engine import Engine
 import entity_factories
 import input_handlers
@@ -46,7 +46,7 @@ def new_game() -> Engine:
     engine.update_fov()
 
     engine.message_log.add_message(
-        "Hello and welcome, adventurer, to yet another dungeon!", color.welcome_text
+        "Hello and welcome, adventurer, to yet another dungeon!", colour.welcome_text
     )
     return engine
 
@@ -61,15 +61,15 @@ class MainMenu(input_handlers.BaseEventHandler):
         console.print(
             console.width // 2,
             console.height // 2 - 4,
-            "TOMBS OF THE ANCIENT KINGS",
-            fg=color.menu_title,
+            "Labyrinth of @",
+            fg=colour.menu_title,
             alignment=tcod.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
-            "By (Your name here)",
-            fg=color.menu_title,
+            "By Anthony",
+            fg=colour.menu_title,
             alignment=tcod.CENTER,
         )
 
@@ -81,8 +81,8 @@ class MainMenu(input_handlers.BaseEventHandler):
                 console.width // 2,
                 console.height // 2 - 2 + i,
                 text.ljust(menu_width),
-                fg=color.menu_text,
-                bg=color.black,
+                fg=colour.menu_text,
+                bg=colour.black,
                 alignment=tcod.CENTER,
                 bg_blend=tcod.BKGND_ALPHA(64),
             )
@@ -90,12 +90,12 @@ class MainMenu(input_handlers.BaseEventHandler):
     def ev_keydown(
         self, event: tcod.event.KeyDown
     ) -> Optional[input_handlers.BaseEventHandler]:
-        if event.sym in (tcod.event.K_q, tcod.event.K_ESCAPE):
+        if event.sym in (tcod.event.KeySym.q, tcod.event.KeySym.ESCAPE):
             raise SystemExit()
-        elif event.sym == tcod.event.K_c:
+        elif event.sym == tcod.event.KeySym.c:
             # TODO: Load the game here
             pass
-        elif event.sym == tcod.event.K_n:
+        elif event.sym == tcod.event.KeySym.n:
             return input_handlers.MainGameEventHandler(new_game())
 
         return None
