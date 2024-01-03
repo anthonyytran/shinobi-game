@@ -39,7 +39,6 @@ def main() -> None:
                 root_console.clear()
                 handler.on_render(console=root_console)
                 context.present(root_console)
-
                 try:
                     for event in tcod.event.wait():
                         context.convert_event(event)
@@ -49,7 +48,7 @@ def main() -> None:
                     # Then print the error to the message log.
                     if isinstance(handler, input_handlers.EventHandler):
                         handler.engine.message_log.add_message(
-                            traceback.format_exc(), color.error
+                            traceback.format_exc(), colour.error
                         )
         except exceptions.QuitWithoutSaving:
             raise
