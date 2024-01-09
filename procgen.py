@@ -74,7 +74,7 @@ def place_entities(
                 entity_factories.confusion_scroll.spawn(dungeon, x, y)
             else: 
                 entity_factories.lightning_scroll.spawn(dungeon, x, y)
-
+ 
 
 def tunnel_between(
     start: Tuple[int, int], end: Tuple[int, int]

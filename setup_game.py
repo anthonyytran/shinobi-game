@@ -6,6 +6,7 @@ import lzma
 import pickle
 import traceback 
 from typing import Optional
+from tcod import libtcodpy
 
 import tcod
 
@@ -75,14 +76,14 @@ class MainMenu(input_handlers.BaseEventHandler):
             console.height // 2 - 4,
             "Labyrinth of @",
             fg=colour.menu_title,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
         console.print(
             console.width // 2,
             console.height - 2,
             "By Anthony",
             fg=colour.menu_title,
-            alignment=tcod.CENTER,
+            alignment=libtcodpy.CENTER,
         )
 
         menu_width = 24
@@ -95,7 +96,7 @@ class MainMenu(input_handlers.BaseEventHandler):
                 text.ljust(menu_width),
                 fg=colour.menu_text,
                 bg=colour.black,
-                alignment=tcod.CENTER,
+                alignment=libtcodpy.CENTER,
                 bg_blend=tcod.BKGND_ALPHA(64),
             )
 
