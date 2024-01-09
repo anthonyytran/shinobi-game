@@ -97,7 +97,7 @@ class MainMenu(input_handlers.BaseEventHandler):
                 fg=colour.menu_text,
                 bg=colour.black,
                 alignment=libtcodpy.CENTER,
-                bg_blend=tcod.BKGND_ALPHA(64),
+                bg_blend=libtcodpy.BKGND_ALPHA(64),
             )
 
     def ev_keydown(
