@@ -100,18 +100,19 @@ class GameWorld:
     """
     Holds the settings for the GameMap, and generates new maps when moving down the stairs.
     """
-    def __init__(self, 
-                 *, 
-                 engine: Engine, 
-                 map_width: int, 
-                 map_height: int, 
-                 max_rooms: int, 
-                 room_min_size: int, 
-                 room_max_size: int, 
-                 max_monsters_per_room: int, 
-                 max_items_per_room: int, 
-                 current_floor: int = 0
-                 ):
+    def __init__(
+        self, 
+        *, 
+        engine: Engine, 
+        map_width: int, 
+        map_height: int, 
+        max_rooms: int, 
+        room_min_size: int, 
+        room_max_size: int, 
+        max_monsters_per_room: int, 
+        max_items_per_room: int, 
+        current_floor: int = 0
+    ):
         self.engine = engine    
 
         self.map_width = map_width
