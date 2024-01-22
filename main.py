@@ -30,7 +30,7 @@ def main() -> None:
         screen_width,
         screen_height,
         tileset=tileset,
-        title="Python Game",
+        title="Labyrinth of the Shinobi",
         vsync=True,
     ) as context:
         root_console = tcod.console.Console(screen_width, screen_height, order="F")

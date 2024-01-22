@@ -50,7 +50,7 @@ def new_game() -> Engine:
     engine.update_fov()
 
     engine.message_log.add_message(
-        "Hello and welcome, adventurer, to yet another dungeon!", colour.welcome_text
+        "Welcome Shinobi...", colour.welcome_text
     )
     return engine
 
@@ -74,7 +74,7 @@ class MainMenu(input_handlers.BaseEventHandler):
         console.print(
             console.width // 2,
             console.height // 2 - 4,
-            "Labyrinth of @",
+            "Labyrinth of the Shinobi",
             fg=colour.menu_title,
             alignment=libtcodpy.CENTER,
         )
