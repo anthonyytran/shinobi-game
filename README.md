@@ -9,7 +9,7 @@ A 2-D roguelike game that I am currently in the process of developing.
 ## Prerequisites
 Before embarking on your shinobi adventure, ensure you have Python installed on your system. You can download Python from python.org.
 
-Getting Started
+## Getting Started
 To navigate the labyrinth and experience the game, follow these simple steps:
 
 Clone the Repository:
