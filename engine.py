@@ -12,7 +12,7 @@ import pickle
 
 if TYPE_CHECKING:
     from entity import Actor
-    from game_map import GameMap
+    from game_map import GameMap, GameWorld
     
 class Engine:
     game_map: GameMap
