@@ -31,7 +31,7 @@ troll = Actor(
     name="Troll",
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=16, defense=1, power=4),
-    inventory=Inventory(capacity=0)
+    inventory=Inventory(capacity=0),
     level=Level(xp_given=100),
 )
 
